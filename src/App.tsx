@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type DragEvent } from 'react'
+import { useEffect, useRef, useState, type DragEvent, type CSSProperties } from 'react'
 import './App.css'
 
 type Point = { x: number; y: number }
@@ -111,6 +111,13 @@ function App() {
   const explosionTimer = useRef<number | null>(null)
   const isComplete = Object.values(placed).every(Boolean)
   const piecesById = Object.fromEntries(pieces.map((piece) => [piece.id, piece]))
+  const assetBase = import.meta.env.BASE_URL ?? '/'
+  const pictureUrl = `${assetBase}picture.jpg`
+  const animationUrl = `${assetBase}animation.gif`
+  const explosionUrl = `${assetBase}explosion.gif`
+  const pageStyle = {
+    '--completion-image': `url(${animationUrl})`
+  } as CSSProperties
 
   useEffect(() => {
     return () => {
@@ -213,7 +220,7 @@ function App() {
   }
 
   return (
-    <div className={`page ${isComplete ? 'complete' : ''}`}>
+    <div className={`page ${isComplete ? 'complete' : ''}`} style={pageStyle}>
       <section className="puzzle-stage" aria-label="Puzzle" ref={stageRef}>
         {isComplete ? (
           <div className="completion-banner" aria-live="polite">
@@ -227,7 +234,7 @@ function App() {
             {isComplete && showExplosion ? (
               <img
                 className="explosion"
-                src="/explosion.gif"
+                src={explosionUrl}
                 alt=""
                 aria-hidden="true"
               />
@@ -273,7 +280,7 @@ function App() {
                             y={imagePattern(piece).y}
                           >
                             <image
-                              href="/picture.jpg"
+                              href={pictureUrl}
                               x="0"
                               y="0"
                               width={imagePattern(piece).width}
@@ -362,7 +369,7 @@ function App() {
                       y={imagePattern(piece).y}
                     >
                       <image
-                        href="/picture.jpg"
+                        href={pictureUrl}
                         x="0"
                         y="0"
                         width={imagePattern(piece).width}
