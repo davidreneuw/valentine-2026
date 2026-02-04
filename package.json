@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://davidreneuw.github.io/valentine-2026/",
+  "homepage": "https://completelyinconspicoussite.com",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
